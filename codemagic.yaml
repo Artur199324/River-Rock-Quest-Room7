@@ -4,7 +4,7 @@ workflows:
     max_build_duration: 120
     instance_type: mac_mini_m1
     integrations:
-      app_store_connect: sUeDXGQo
+      app_store_connect: River Quest Area & Quiz
     environment:
       ios_signing:
         distribution_type: app_store
@@ -28,23 +28,23 @@ workflows:
         script: |
           find . -name "*.swift" -print0 | xargs -0 sed -i '' -e 's/\b(\w+)\b/$1_obf/g'
       - name: Build ipa for distribution
-       script: |
-        xcode-project build-ipa \
-         --workspace "$CM_BUILD_DIR/$XCODE_WORKSPACE" \
-          --scheme "$XCODE_SCHEME"
+        script: |
+          xcode-project build-ipa \
+            --workspace "$CM_BUILD_DIR/$XCODE_WORKSPACE" \
+            --scheme "$XCODE_SCHEME"
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
       - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
       - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
-       publishing:
+    publishing:
       email:
         recipients:
-          - artyr241993@gmail.com
+          - yanytskyidima@gmail.com
         notify:
           success: true
           failure: true
-    app_store_connect:
+      app_store_connect:
         auth: integration
         submit_to_testflight: true
         beta_groups:
@@ -52,4 +52,3 @@ workflows:
         submit_to_app_store: true
         cancel_previous_submissions: true
         release_type: MANUAL
-        
